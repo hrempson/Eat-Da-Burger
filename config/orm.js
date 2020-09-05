@@ -1,13 +1,23 @@
 const connection = require('./connection');
+const { connect } = require('./connection');
 
 const orm = {
 
-selectAll() {
-
+selectAll(columns, tableName, cb) {
+    // Select * FROM burgers
+    // SELECT column FROM tableName
+    connection.query("SELECT ?? FROM ??", [columns, tableName], (err, results) => {
+        if (err) throw err;
+        cb(results);
+    });
 },
 
-insertOne() {
-
+insertOne(tableName, values, cb) {
+    //Insert INTO tableName SET value;
+    connection.query("INSERT INTO ?? SET ?", [tableName, values], (err, results) => {
+        if (err) throw err;
+        cb(results);
+    });
 },
 
 updateOne() {

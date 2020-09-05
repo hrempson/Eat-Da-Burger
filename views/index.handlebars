@@ -1,1 +1,29 @@
-Test
+<ul>
+{{#each burgers}}
+    <li> {{burger_name}}</li>
+{{/each}}
+</ul>
+
+<form id="create-burger-form" action="/api/burgers" method="POST">
+    <input type= "text" name = "burger_name">
+    <button>Add Burger</button>
+</form>
+<script>
+
+$("#create-burger-form").on("submit", (e) => {
+    e.preventDefault();
+
+    const burgerData = {
+        burger_name: $('[name="burger_name"]').val()
+    };
+
+    $.ajax({
+        url: "/api/burgers"
+        method: "POST"
+        data: burgerData
+    }).then( () => {
+        location.reload();
+    });
+});
+
+</script>
