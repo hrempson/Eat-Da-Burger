@@ -1,10 +1,24 @@
+<h2> Available Burgers</h2>
 <ul>
 {{#each burgers}}
+    {{#unless devoured}}
     <li> 
     {{burger_name}}
     <button class="devour" data-id="{{id}}"> Devour!</button>
     </li>
+    {{/unless}}
 {{/each}}
+</ul>
+
+<h2>Devoured Burgers</h2>
+<ul>
+{{#each burgers}}
+    {{#if devoured}}
+     <li> 
+        {{burger_name}}
+    </li>
+    {{/if}}
+    {{/each}}
 </ul>
 
 <form id="create-burger-form" action="/api/burgers" method="POST">
@@ -31,7 +45,21 @@ $("#create-burger-form").on("submit", (e) => {
 
 $(".devour").on("click", function() {
    const burgerId = $(this).data("id");
-   console.log(burgerId);
+   const updateRoute = "api/burgers/" + burgerId;
+   const burgerData = {
+
+   };
+
+     $.ajax({
+        url: updateRoute,
+        method: "PUT",
+        data: {
+            devoured: 1
+        }
+    }).then( () => {
+        location.reload();
+    });
+
 });
 
 </script>
