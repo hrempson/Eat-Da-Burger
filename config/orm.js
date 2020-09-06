@@ -21,7 +21,6 @@ insertOne(tableName, values, cb) {
 },
 
 updateOne(tableName, newValue, targetId, cb) {
-    // UPDATE tableName SET newValue WHERE id = targetId.
     connection.query("UPDATE ?? SET ? WHERE id = ?", [tableName, newValue, targetId], (err, results) => {
         if (err) throw err;
         cb(results);
